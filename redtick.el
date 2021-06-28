@@ -164,18 +164,24 @@
                                    ,(number-to-string seconds)))))
 
 (defun redtick--play-work-sound ()
+  (notifications-notify :title "Start of Work"
+                        :urgency 'normal)
   (redtick--stop-sound)
   (redtick--play-sound-during redtick-work-sound redtick-work-interval))
 
 (add-hook 'redtick-before-work-hook #'redtick--play-work-sound)
 
 (defun redtick--play-rest-sound ()
+  (notifications-notify :title "Start of Rest"
+                        :urgency 'critical)
   (redtick--stop-sound)
   (redtick--play-sound-during redtick-rest-sound redtick-rest-interval))
 
 (add-hook 'redtick-before-rest-hook #'redtick--play-rest-sound)
 
 (defun redtick--play-end-of-rest-sound ()
+  (notifications-notify :title "End of Rest"
+                        :urgency 'critical)
   (redtick--stop-sound)
   (redtick--play-sound redtick-end-rest-sound))
 
