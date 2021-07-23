@@ -148,8 +148,8 @@
   (if redtick-play-sound
       (if (executable-find "sox")
           (setq redtick--sound-process
-                (apply 'start-process "sox" redtick-sox-buffer
-                       "sox" file "-d" "vol" redtick-sound-volume args))
+                (apply 'start-process "mplayer" redtick-sox-buffer
+                       "mplayer" file "-volume" redtick-sound-volume args))
         (warn "SoX executable not found"))))
 
 (defun redtick--stop-sound ()
@@ -160,7 +160,7 @@
 (defun redtick--play-sound-during (file seconds)
   "Play FILE during SECONDS, repeating or cutting if needed."
   (let ((fade (if (< seconds 8) "0" "4")))
-       (redtick--play-sound file `("repeat" "-" "fade" "t" ,fade
+       (redtick--play-sound file `("-loop" "0" "-" "fade" "t" ,fade
                                    ,(number-to-string seconds)))))
 
 (defun redtick--play-work-sound ()
